@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+
+    <h1>Smart Campus Fix</h1>
+    <p>Admin Issue Management Dashboard</p>
+
+    <div class="card">
+        <h2>Issue Overview</h2>
+
+        <p><strong>Total Issues:</strong> {{ issues|length }}</p>
+
+        <p><strong>Pending:</strong>
+            {{ issues|selectattr("status", "equalto", "Pending")|list|length }}
+        </p>
+
+        <p><strong>In Progress:</strong>
+            {{ issues|selectattr("status", "equalto", "In Progress")|list|length }}
+        </p>
+
+        <p><strong>Resolved:</strong>
+            {{ issues|selectattr("status", "equalto", "Resolved")|list|length }}
+        </p>
+    </div>
+
+    <h1>Smart Campus Fix</h1>
+    <h2>Admin Dashboard</h2>
+
+    <p>Total Issues: {{ issues|length }}</p>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Priority</th>
+            <th>Department</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue['id'] }}</td>
+            <td>{{ issue['title'] }}</td>
+            <td>{{ issue['category'] }}</td>
+            <td>{{ issue['priority'] }}</td>
+            <td>{{ issue['department'] }}</td>
+            <td>{{ issue['status'] }}</td>
+
+            <td>
+                <form action="/update/{{ issue['id'] }}" method="POST">
+                    <select name="status">
+                        <option value="Reported">Reported</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/report">Report Issue</a>
+    <br><br>
+    <a href="/track">Track Issue</a>
+    <br><br>
+    <a href="/">Home</a>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Issue</title>
+</head>
+<body>
+
+    <h1>Track Your Issue</h1>
+
+    <form method="POST">
+        <label>Enter Issue ID:</label><br><br>
+        <input type="number" name="issue_id" required>
+        <button type="submit">Track</button>
+    </form>
+
+    {% if issue %}
+        <hr>
+
+        <h2>Issue #{{ issue['id'] }}</h2>
+
+        <p><strong>Title:</strong> {{ issue['title'] }}</p>
+        <p><strong>Description:</strong> {{ issue['description'] }}</p>
+        <p><strong>Category:</strong> {{ issue['category'] }}</p>
+        <p><strong>Priority:</strong> {{ issue['priority'] }}</p>
+        <p><strong>Department:</strong> {{ issue['department'] }}</p>
+        <p><strong>Status:</strong> {{ issue['status'] }}</p>
+
+    {% elif request.method == "POST" %}
+        <p>❌ Issue not found. Please check the Issue ID.</p>
+    {% endif %}
+
+    <br>
+    <a href="/report">Report Another Issue</a>
+    <br><br>
+    <a href="/">Home</a>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Issue - Smart Campus Fix</title>
+</head>
+<body>
+
+    <h1>Smart Campus Fix</h1>
+    <h2>Report a Campus Issue</h2>
+
+    <form method="POST">
+
+        <label>Issue Title:</label><br>
+        <input type="text" name="title" placeholder="Example: Wi-Fi not working" required>
+        <br><br>
+
+        <label>Describe the Problem:</label><br>
+        <textarea name="description"
+                  placeholder="Describe your problem..."
+                  rows="5"
+                  required></textarea>
+        <br><br>
+
+        <button type="submit">Submit Issue</button>
+
+    </form>
+
+    {% if success %}
+        <hr>
+
+        <h2>✅ Issue Submitted Successfully!</h2>
+
+        <p><strong>Issue ID:</strong> {{ issue_id }}</p>
+        <p><strong>Category:</strong> {{ category }}</p>
+        <p><strong>Priority:</strong> {{ priority }}</p>
+        <p><strong>Department:</strong> {{ department }}</p>
+
+        <p>Save your Issue ID to track your complaint.</p>
+
+        <a href="/track">Track Issue</a>
+    {% endif %}
+
+    <br><br>
+    <a href="/">← Home</a>
+
+</body>
+</html>
